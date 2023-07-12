@@ -69,7 +69,7 @@ Create an .env file from the .env.example file filling tha values for each varia
 
 ```bash
 $ pnpm install
-$ pnpm start:chain --filter=customers # only run one node, for instance executing the hardhat node from the customers workspace
+$ pnpm start:chain --filter=customers # only run one node, for instance executing the hardhat node in the customers workspace
 ```
 
 Open another tab in terminal and:
@@ -87,12 +87,10 @@ $ cd services/loans-model
 $ poetry install --no-root
 ```
 
-rerplace 'host.docker.internal' for 127.0.0.1 for all the corresponding npm scripts in services/loans/package.json and services/customers/package.json
-
-then:
+Replace 'host.docker.internal' for 127.0.0.1 for all the corresponding npm scripts in `services/loans/package.json` and `services/customers/package.json`. Then:
 
 ```bash
-& pnpm install
+$ pnpm install
 $ pnpm run start:chain
 ```
 
