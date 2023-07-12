@@ -63,6 +63,8 @@ $ cd bank-microservices
 $ git submodule update --init --recursive
 ```
 
+Create an .env file from the .env.example file filling tha values for each variable.
+
 ### Running w/ Docker
 
 ```bash
