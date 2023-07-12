@@ -1,0 +1,3 @@
+.container {
+  composes: sectionContainer from 'src/shared/styles/modules/utils.module.css';
+}

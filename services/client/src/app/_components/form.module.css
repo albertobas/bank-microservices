@@ -1,0 +1,29 @@
+.container > div {
+  display: flex;
+  flex-direction: column;
+}
+.container > div {
+  padding-top: 0.75rem;
+}
+.container > div > label {
+  padding-bottom: 0.5rem;
+}
+.container > input,
+.container > div > input,
+.container > div > select {
+  color: inherit;
+  font: var(--font-mono);
+  font-size: inherit;
+  width: 100%;
+}
+.container > div > input,
+.container > div > select {
+  height: 1.5rem;
+}
+.container > input[type='submit'] {
+  border: none;
+  background: var(--gray);
+  padding: 0.5rem 1rem;
+  margin-top: 0.75rem;
+  cursor: pointer;
+}

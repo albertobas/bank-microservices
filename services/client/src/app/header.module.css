@@ -1,0 +1,16 @@
+.header {
+  composes: container from 'src/shared/styles/modules/utils.module.css';
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: relative;
+  z-index: 100;
+  align-items: center;
+  justify-content: space-between;
+  font: var(--font-mono);
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+.header > a {
+  padding: 1rem 1rem;
+}

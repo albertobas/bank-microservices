@@ -1,0 +1,39 @@
+{
+  "name": "bank-utils",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    "./api/v1/entities": "./dist/api/v1/entities/index.js",
+    "./api/v1/helpers": "./dist/api/v1/helpers/index.js",
+    "./api/v1/methods/account": "./dist/api/v1/methods/account.js",
+    "./api/v1/methods/customer": "./dist/api/v1/methods/customer.js",
+    "./api/v1/methods/loan": "./dist/api/v1/methods/loan.js",
+    "./api/v1/methods/request": "./dist/api/v1/methods/request.js",
+    "./api/v1/paths/account": "./dist/api/v1/paths/account.js",
+    "./api/v1/paths/customer": "./dist/api/v1/paths/customer.js",
+    "./api/v1/paths/loan": "./dist/api/v1/paths/loan.js",
+    "./api/v1/paths/request": "./dist/api/v1/paths/request.js",
+    "./api/v1/types": "./dist/api/v1/types/index.js",
+    "./contracts/helpers": "./dist/contracts/helpers/index.js",
+    "./subgraph/helpers": "./dist/subgraph/helpers/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "lint": "eslint \"**/*.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "eslint": "^8.40.0",
+    "eslint-config-custom": "workspace:*",
+    "handlebars": "^4.7.7",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.5.2"
+  }
+}

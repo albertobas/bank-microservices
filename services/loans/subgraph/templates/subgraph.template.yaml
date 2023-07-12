@@ -1,0 +1,38 @@
+specVersion: 0.0.4
+description: Bank Microservices Loans
+repository: https://github.com/albertobas/bank-microservices/services/loans
+schema:
+    file: ./schema.graphql
+features:
+    - ipfsOnEthereumContracts
+dataSources:
+    - name: LoanManagerDataSource
+      kind: ethereum/contract
+      network: {{network}}
+      source:
+          address: "{{LoanManagerAddress}}"
+          abi: LoanManager
+          startBlock: {{LoanManagerStartBlock}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/mappings/LoanManager.ts
+          entities:
+              - Account
+              - LoanManagerContract
+              - Loan
+              - LoanAddition
+              - LoanUpdate
+              - OwnershipTransferred
+              - Transaction
+          abis:
+              - name: LoanManager
+                file: ../contracts/deployments/{{network}}/LoanManager.json
+          eventHandlers:
+              - event: LoanAdded(indexed uint256,indexed uint256,bytes32,bytes32,bytes32,uint256,bool)
+                handler: handleLoanAdded
+              - event: LoanUpdated(indexed uint256,bytes32,bytes32,bytes32,uint256,bool)
+                handler: handleLoanUpdated
+              - event: OwnershipTransferred(indexed address,indexed address)
+                handler: handleOwnershipTransferred

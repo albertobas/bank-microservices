@@ -1,0 +1,46 @@
+{
+  "name": "bank-microservices",
+  "version": "0.1.0",
+  "author": {
+    "name": "Alberto Bas",
+    "url": "https://github.com/albertobas"
+  },
+  "description": "",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "dotenv -- turbo run build",
+    "clean": "turbo run clean",
+    "compile": "turbo run compile",
+    "deploy:contracts": "turbo run deploy:contracts",
+    "dev": "dotenv -- turbo run dev --parallel",
+    "format": "prettier --write .",
+    "lint": "turbo run lint --parallel",
+    "populate": "turbo run populate",
+    "prepare:graph": "turbo run prepare:graph",
+    "remove:graph": "turbo run remove:graph",
+    "share": "turbo run share",
+    "start": "turbo run start",
+    "start:chain": "turbo run start:chain",
+    "stop": "turbo run stop",
+    "test": "turbo run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertobas/bank-microservices.git"
+  },
+  "bugs": {
+    "url": "https://github.com/albertobas/bank-microservices/issues"
+  },
+  "homepage": "https://github.com/albertobas/bank-microservices#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
+    "dotenv-cli": "^7.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.1",
+    "prettier": "^2.8.8",
+    "turbo": "^1.10.3"
+  },
+  "packageManager": "pnpm@8.5.1"
+}

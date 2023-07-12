@@ -1,0 +1,69 @@
+# directories
+.vscode
+**/node_modules
+.turbo
+cache
+forge-cache
+dist
+out
+data
+log
+artifacts
+deployments
+generated
+services/**/types
+.ipynb_checkpoints
+__pycache__
+# config
+build
+# .venv
+services/loans-model/*.joblib
+
+# files
+**/*.tsbuildinfo
+**/.DS_Store
+.env
+.env.k8s
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+subgraph.yaml
+
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+# /node_modules
+/services/client/.pnp
+.pnp.js
+
+# testing
+coverage
+
+# next.js
+.next/
+# /services/client/out/
+
+# production
+# build
+
+# misc
+# .DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

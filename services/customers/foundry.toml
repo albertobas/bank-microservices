@@ -1,0 +1,10 @@
+[profile.default]
+src = 'contracts/src'
+cache_path = 'contracts/forge-cache'
+out = 'contracts/out'
+script = 'contracts/script/foundry'
+test = 'contracts/test/foundry'
+libs = ['../../node_modules', 'contracts/lib']
+
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/config

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local", "**/.env"],
+  "pipeline": {
+    "clean": {
+      "cache": false,
+      "persistent": false
+    },
+    "test": { "outputs": ["forge-cache/**", "out/**"] },
+    "lint": {},
+    "build": {
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "public/dist/**",
+        "services/loans/subgraph/subgraph.yaml",
+        "services/loans/subgraph/src/generated/types/**"
+      ],
+      "dependsOn": ["^build"],
+      "env": [
+        "ACCOUNTS_PORT_V1",
+        "CUSTOMERS_PORT_V1",
+        "LOANS_PORT_V1",
+        "NEXT_PUBLIC_ACCOUNTS_PORT_V1",
+        "NEXT_PUBLIC_CUSTOMERS_PORT_V1",
+        "NEXT_PUBLIC_LOANS_PORT_V1",
+        "NEXT_PUBLIC_REQUESTS_PORT_V1",
+        "NODE_ENV",
+        "REQUESTS_PORT_V1"
+      ]
+    },
+    "compile": {
+      "outputs": ["types/**"],
+      "persistent": false
+    },
+    "deploy:contracts": {
+      "cache": false,
+      "outputs": ["deployments/**"],
+      "persistent": false,
+      "dependsOn": ["^build"]
+    },
+    "share": {
+      "cache": false,
+      "outputs": ["config/**", "generated/**"],
+      "persistent": false,
+      "dependsOn": ["^build"]
+    },
+    "start:chain": {
+      "cache": false,
+      "persistent": true
+    },
+    "populate": {
+      "cache": false,
+      "dependsOn": ["^deploy:contracts"]
+    },
+    "dev": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "persistent": true,
+      "env": [
+        "ACCOUNTS_PORT_V1",
+        "CUSTOMERS_PORT_V1",
+        "LOANS_PORT_V1",
+        "NEXT_PUBLIC_ACCOUNTS_PORT_V1",
+        "NEXT_PUBLIC_CUSTOMERS_PORT_V1",
+        "NEXT_PUBLIC_LOANS_PORT_V1",
+        "NEXT_PUBLIC_REQUESTS_PORT_V1",
+        "NODE_ENV",
+        "REQUESTS_PORT_V1"
+      ]
+    },
+    "start": {
+      "cache": false,
+      "dependsOn": ["^start"],
+      "persistent": true
+    },
+    "prepare:graph": {
+      "cache": false,
+      "persistent": false
+    },
+    "stop": {
+      "cache": false,
+      "persistent": false
+    }
+  }
+}

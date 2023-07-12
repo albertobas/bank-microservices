@@ -1,0 +1,14 @@
+{
+  "name": "loans-model",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "buildd": "poetry run python dump_model.py",
+    "start": "pnpm start:server",
+    "start:server": "dotenv -e ../../.env poetry run python app.py"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.2.1"
+  }
+}

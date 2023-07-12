@@ -1,0 +1,73 @@
+# ----------------------------------
+#             INTERFACES
+# ----------------------------------
+interface IEvent {
+  id: ID!
+  emitter: Account!
+  timestamp: BigInt!
+  transaction: Transaction!
+}
+# ----------------------------------
+#  ENTITIES FOR HIGH-LEVEL CONCEPTS
+# ----------------------------------
+# Due to contract aptitude to change ownership entity is mutable
+type Account @entity {
+  id: Bytes!
+  asLoanManagerContract: LoanManagerContract
+  events: [IEvent!] @derivedFrom(field: "emitter")
+}
+type LoanManagerContract @entity {
+  id: Bytes!
+  asAccount: Account!
+  owner: Account
+  loans: [Loan!]! @derivedFrom(field: "contract")
+  loanAdditions: [LoanAddition!]! @derivedFrom(field: "contract")
+  loanUpdates: [LoanUpdate!]! @derivedFrom(field: "contract")
+}
+type Loan @entity {
+  id: ID!
+  addition: LoanAddition
+  contract: LoanManagerContract!
+  creationDate: BigInt!
+  customer: BigInt
+  delinquencies2Yrs: BigInt
+  installment: String
+  intRate: String
+  isDefault: Boolean
+  purpose: String
+  update: LoanUpdate
+}
+type Transaction @entity(immutable: true) {
+  id: ID!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  events: [IEvent!]! @derivedFrom(field: "transaction")
+}
+# ----------------------------------
+#   ENTITIES FOR LOW-LEVEL OBJECTS
+# ----------------------------------
+type LoanAddition implements IEvent @entity(immutable: true) {
+  id: ID!
+  contract: LoanManagerContract!
+  emitter: Account!
+  loan: Loan!
+  timestamp: BigInt!
+  transaction: Transaction!
+}
+type LoanUpdate implements IEvent @entity(immutable: true) {
+  id: ID!
+  contract: LoanManagerContract!
+  emitter: Account!
+  loan: Loan!
+  timestamp: BigInt!
+  transaction: Transaction!
+}
+type OwnershipTransferred implements IEvent @entity(immutable: true) {
+  id: ID!
+  contract: LoanManagerContract!
+  emitter: Account!
+  owner: Account!
+  previousOwner: Account!
+  timestamp: BigInt!
+  transaction: Transaction!
+}

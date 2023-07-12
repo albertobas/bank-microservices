@@ -1,0 +1,36 @@
+{
+  "name": "requests",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "pnpm clean:outDir & pnpm clean:db",
+    "clean:db": "rm -rf mongo/data & rm -rf mongo/log",
+    "clean:outDir": "rm -rf dist",
+    "dev": "NODE_ENV='development' nodemon --exec \"node -r esbuild-register ./api/v1/index.ts\" -e .ts",
+    "lint": "pnpm lint:api",
+    "lint:api": "eslint \"api/**/*.ts\"",
+    "start": "pnpm start:server",
+    "start:server": "node ./dist/v1/index.js"
+  },
+  "dependencies": {
+    "bank-utils": "workspace:*",
+    "express": "^4.18.2",
+    "http-status-codes": "^2.2.0",
+    "logger": "workspace:*",
+    "mongodb": "^5.3.0",
+    "server": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.11",
+    "esbuild": "^0.17.19",
+    "esbuild-register": "^3.4.2",
+    "eslint": "^8.40.0",
+    "eslint-config-custom": "workspace:*",
+    "nodemon": "^2.0.22",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4"
+  }
+}

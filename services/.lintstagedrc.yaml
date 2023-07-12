@@ -1,0 +1,3 @@
+"**/*.{ts,js}":
+    - prettier --config ../.prettierrc.yaml --write
+    - eslint --fix

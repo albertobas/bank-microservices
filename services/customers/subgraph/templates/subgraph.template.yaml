@@ -1,0 +1,38 @@
+specVersion: 0.0.4
+description: Bank Microservices Loans
+repository: https://github.com/albertobas/bank-microservices/services/loans
+schema:
+    file: ./schema.graphql
+features:
+    - ipfsOnEthereumContracts
+dataSources:
+    - name: CustomerManagerDataSource
+      kind: ethereum/contract
+      network: {{network}}
+      source:
+          address: "{{CustomerManagerAddress}}"
+          abi: CustomerManager
+          startBlock: {{CustomerManagerStartBlock}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/mappings/CustomerManager.ts
+          entities:
+              - Account
+              - Customer
+              - CustomerAddition
+              - CustomerUpdate
+              - CustomerManagerContract
+              - OwnershipTransferred
+              - Transaction
+          abis:
+              - name: CustomerManager
+                file: ../contracts/deployments/{{network}}/CustomerManager.json
+          eventHandlers:
+              - event: CustomerAdded(indexed uint256,uint256,bytes32,uint256,bytes32,bytes32)
+                handler: handleCustomerAdded
+              - event: CustomerUpdated(indexed uint256,uint256,bytes32,uint256,bytes32,bytes32)
+                handler: handleCustomerUpdated
+              - event: OwnershipTransferred(indexed address,indexed address)
+                handler: handleOwnershipTransferred

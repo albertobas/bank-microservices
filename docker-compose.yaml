@@ -1,0 +1,221 @@
+version: "3"
+networks:
+    bank_network:
+        external: true
+services:
+    # Graph node
+    graph-node:
+        container_name: graph-node
+        image: graphprotocol/graph-node:v0.27.0
+        ports:
+            - "8000:8000"
+            - "8001:8001"
+            - "8020:8020"
+            - "8030:8030"
+            - "8040:8040"
+        depends_on:
+            - ipfs
+            - postgres
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        environment:
+            postgres_host: postgres
+            postgres_user: graph-node
+            postgres_pass: let-me-in
+            postgres_db: graph-node
+            ipfs: "ipfs:5001"
+            ethereum: "localhost:http://host.docker.internal:8545"
+            GRAPH_LOG: info
+    ipfs:
+        container_name: ipfs
+        image: ipfs/go-ipfs:v0.10.0
+        ports:
+            - "5001:5001"
+        volumes:
+            - "./services/graph-node/data/ipfs:/data/ipfs"
+    postgres:
+        container_name: postgres
+        image: postgres
+        ports:
+            - "5432:5432"
+        command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
+        environment:
+            POSTGRES_USER: graph-node
+            POSTGRES_PASSWORD: let-me-in
+            POSTGRES_DB: graph-node
+        volumes:
+            - "./services/graph-node/data/postgres:/var/lib/postgresql/data"
+    # Mongo instances
+    accounts-mongo:
+        image: mongo:latest
+        container_name: accounts-mongo
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${ACCOUNTS_DB_USER_V1}
+            - MONGO_INITDB_ROOT_PASSWORD=${ACCOUNTS_DB_PASSWORD_V1}
+            - MONGO_INITDB_DATABASE=${ACCOUNTS_DB}
+        ports:
+            - "${ACCOUNTS_DB_PORT_V1}:27017"
+        volumes:
+            - "./services/accounts/mongo/init.sh:/docker-entrypoint-initdb.d/init.sh:ro"
+            - "./services/accounts/mongo/data:/data/db"
+            - "./services/accounts//mongo/log:/var/log/mongodb"
+        networks:
+            - bank_network
+    customers-mongo:
+        image: mongo:latest
+        container_name: customers-mongo
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${CUSTOMERS_DB_USER_V1}
+            - MONGO_INITDB_ROOT_PASSWORD=${CUSTOMERS_DB_PASSWORD_V1}
+            - MONGO_INITDB_DATABASE=${CUSTOMERS_DB}
+        ports:
+            - "${CUSTOMERS_DB_PORT_V1}:27017"
+        volumes:
+            - "./services/customers/mongo/init.sh:/docker-entrypoint-initdb.d/init.sh:ro"
+            - "./services/customers/mongo/data:/data/db"
+            - "./services/customers//mongo/log:/var/log/mongodb"
+        networks:
+            - bank_network
+    loans-mongo:
+        image: mongo:latest
+        container_name: loans-mongo
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${LOANS_DB_USER_V1}
+            - MONGO_INITDB_ROOT_PASSWORD=${LOANS_DB_PASSWORD_V1}
+            - MONGO_INITDB_DATABASE=${LOANS_DB}
+        ports:
+            - "${LOANS_DB_PORT_V1}:27017"
+        volumes:
+            - "./services/loans/mongo/init.sh:/docker-entrypoint-initdb.d/init.sh:ro"
+            - "./services/loans/mongo/data:/data/db"
+            - "./services/loans//mongo/log:/var/log/mongodb"
+        networks:
+            - bank_network
+    requests-mongo:
+        image: mongo:latest
+        container_name: requests-mongo
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${REQUESTS_DB_USER_V1}
+            - MONGO_INITDB_ROOT_PASSWORD=${REQUESTS_DB_PASSWORD_V1}
+            - MONGO_INITDB_DATABASE=${REQUESTS_DB}
+        ports:
+            - "${REQUESTS_DB_PORT_V1}:27017"
+        volumes:
+            - "./services/requests/mongo/init.sh:/docker-entrypoint-initdb.d/init.sh:ro"
+            - "./services/requests/mongo/data:/data/db"
+            - "./services/requests//mongo/log:/var/log/mongodb"
+        networks:
+            - bank_network
+    # Services
+    accounts:
+        container_name: accounts
+        build:
+            context: "."
+            dockerfile: "./services/accounts/Dockerfile"
+            args:
+                ACCOUNTS_COLLECTION_V1: ${ACCOUNTS_COLLECTION_V1}
+                ACCOUNTS_DB_PORT_V1: ${ACCOUNTS_DB_PORT_V1}
+                ACCOUNTS_PORT_V1: ${ACCOUNTS_PORT_V1}
+                ACCOUNTS_DB_URI_V1: ${ACCOUNTS_DB_URI_V1}
+                ACCOUNTS_DB_USER_V1: ${ACCOUNTS_DB_USER_V1}
+                ACCOUNTS_DB_PASSWORD_V1: ${ACCOUNTS_DB_PASSWORD_V1}
+        restart: always
+        depends_on:
+            - accounts-mongo
+        ports:
+            - "${ACCOUNTS_PORT_V1}:${ACCOUNTS_PORT_V1}"
+        networks:
+            - bank_network
+    client:
+        container_name: client
+        build:
+            context: "."
+            dockerfile: "./services/client/Dockerfile"
+            args:
+                NEXT_PUBLIC_ACCOUNTS_PORT_V1: ${NEXT_PUBLIC_ACCOUNTS_PORT_V1}
+                NEXT_PUBLIC_CUSTOMERS_PORT_V1: ${NEXT_PUBLIC_CUSTOMERS_PORT_V1}
+                NEXT_PUBLIC_LOANS_PORT_V1: ${NEXT_PUBLIC_LOANS_PORT_V1}
+                NEXT_PUBLIC_REQUESTS_PORT_V1: ${NEXT_PUBLIC_REQUESTS_PORT_V1}
+        restart: always
+        ports:
+            - "${CLIENT_PORT}:${CLIENT_PORT}"
+        networks:
+            - bank_network
+    customers:
+        container_name: customers
+        build:
+            args:
+                CUSTOMERS_COLLECTION_V1: ${CUSTOMERS_COLLECTION_V1}
+                CUSTOMERS_DB_PASSWORD_V1: ${CUSTOMERS_DB_PASSWORD_V1}
+                CUSTOMERS_DB_PORT_V1: ${CUSTOMERS_DB_PORT_V1}
+                CUSTOMERS_DB_URI_V1: ${CUSTOMERS_DB_URI_V1}
+                CUSTOMERS_DB_USER_V1: ${CUSTOMERS_DB_USER_V1}
+                CUSTOMERS_PORT_V1: ${CUSTOMERS_PORT_V1}
+            context: "."
+            dockerfile: "./services/customers/Dockerfile"
+        restart: always
+        depends_on:
+            - customers-mongo
+            - graph-node
+        ports:
+            - "${CUSTOMERS_PORT_V1}:${CUSTOMERS_PORT_V1}"
+        networks:
+            - bank_network
+    loans:
+        container_name: loans
+        build:
+            context: "."
+            dockerfile: "./services/loans/Dockerfile"
+            args:
+                LOANS_COLLECTION_V1: ${LOANS_COLLECTION_V1}
+                LOANS_PORT_V1: ${LOANS_PORT_V1}
+                LOANS_DB_PORT_V1: ${LOANS_DB_PORT_V1}
+                LOANS_DB_URI_V1: ${LOANS_DB_URI_V1}
+                LOANS_DB_USER_V1: ${LOANS_DB_USER_V1}
+                LOANS_DB_PASSWORD_V1: ${LOANS_DB_PASSWORD_V1}
+        restart: always
+        depends_on:
+            - loans-mongo
+            - graph-node
+        ports:
+            - "${LOANS_PORT_V1}:${LOANS_PORT_V1}"
+        networks:
+            - bank_network
+
+    loans-model:
+        container_name: loans-model
+        build:
+            context: "."
+            dockerfile: "./services/loans-model/Dockerfile"
+            args:
+                LOANS_MODEL_PORT: ${LOANS_MODEL_PORT}
+                CLIENT_PORT: ${CLIENT_PORT}
+        restart: on-failure
+        ports:
+            - "${LOANS_MODEL_PORT}:${LOANS_MODEL_PORT}"
+        networks:
+            - bank_network
+
+    requests:
+        container_name: requests
+        build:
+            context: "."
+            dockerfile: "./services/requests/Dockerfile"
+            args:
+                REQUESTS_COLLECTION_V1: ${REQUESTS_COLLECTION_V1}
+                REQUESTS_DB_PASSWORD_V1: ${REQUESTS_DB_PASSWORD_V1}
+                REQUESTS_DB_PORT_V1: ${REQUESTS_DB_PORT_V1}
+                REQUESTS_DB_URI_V1: ${REQUESTS_DB_URI_V1}
+                REQUESTS_DB_USER_V1: ${REQUESTS_DB_USER_V1}
+                REQUESTS_PORT_V1: ${REQUESTS_PORT_V1}
+        restart: always
+        depends_on:
+            - requests-mongo
+        ports:
+            - "${REQUESTS_PORT_V1}:${REQUESTS_PORT_V1}"
+        networks:
+            - bank_network

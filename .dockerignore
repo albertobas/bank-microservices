@@ -1,0 +1,12 @@
+**/node_modules
+npm-debug.log
+**/dist
+**/out
+services/**/types
+
+# **/data
+
+__pycache__
+build
+deployments
+services/loans-model/*.joblib

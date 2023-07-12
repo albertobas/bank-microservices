@@ -1,0 +1,11 @@
+.main {
+  composes: sectionContainer from 'src/shared/styles/modules/utils.module.css';
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.main > p {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin: 1rem 0;
+}

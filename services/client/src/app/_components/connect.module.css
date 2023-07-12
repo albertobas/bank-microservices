@@ -1,0 +1,10 @@
+.button {
+  color: inherit;
+  font: var(--font-mono);
+  font-size: inherit;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.7rem 1rem;
+}

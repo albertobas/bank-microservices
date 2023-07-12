@@ -1,0 +1,26 @@
+{
+  "name": "logger",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc -w",
+    "lint": "eslint \"src/**/*.ts*\""
+  },
+  "dependencies": {
+    "winston": "3.8.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.5.3"
+  }
+}
