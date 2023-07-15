@@ -16,7 +16,7 @@ The back-end code is written in Typescript using Express.js and Python using Fla
 
 The front-end code is mostly written in TypeScript using Next.js, a React.js framework.
 
-Both, back-end (all the APIs but that of the Flask web service) and frontend, are implemented based on an hexagonal architecture .
+Both, back end (all the APIs but that of the Flask web service) and front end, are implemented based on an hexagonal architecture .
 
 Also, a scikit-learn pipeline has been developed that includes a Skorch neural net binary classifier that wraps a Pytorch neural net.
 
@@ -26,14 +26,14 @@ Finally, data can be queried from a local TheGraph node using GraphQL. The subgr
 
 All of the microservices have their own Docker images.
 
-- **Contracts Frameworks**: [Hardhat](https://hardhat.org/) and [Foundry](https://getfoundry.sh/)
-- **Front-end Framework**: [Next.js](https://nextjs.org/)
-- **Back-end Framework**: [Express.js](https://expressjs.com/) y [Flask](https://flask.palletsprojects.com/)
-- **Query Language**: [GraphQL](https://graphql.org/)
-- **Data Resource**: [TheGraph](https://thegraph.com/)
+- **Contracts frameworks**: [Hardhat](https://hardhat.org/) and [Foundry](https://getfoundry.sh/)
+- **Front-end framework**: [Next.js](https://nextjs.org/)
+- **Back-end framework**: [Express.js](https://expressjs.com/) and [Flask](https://flask.palletsprojects.com/)
+- **Query language**: [GraphQL](https://graphql.org/)
+- **Data resource**: [TheGraph](https://thegraph.com/)
 - **Styling**: [PostCSS](https://postcss.org)
 - **Python dependency manager**: [Poetry](https://python-poetry.org/)
-- **Neural net modelling**: [Pytorch](https://pytorch.org/)
+- **Machine learning framework**: [Pytorch](https://pytorch.org/)
 
 ## Overview
 
