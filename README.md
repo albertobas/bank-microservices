@@ -4,9 +4,7 @@
 
 ## About
 
-Bank microservices is my own approach to a bank application with a microservices-based architecture, which can manage accounts, customers, and loans, but also make predictions of potential loan defaults and store data on-chain.
-
-The idea behind this dummy bank application is to develop a user interface for employees that can handle creating, updating, and deleting accounts, customers and loans, store loans on-chain and make predictions about potential loan defaults.
+Bank Microservices is my own approach to a bank application with a microservices-based architecture which can handle creating, updating, and deleting accounts, customers and loans, store data on-chain and make predictions about potential loan defaults.
 
 ## Technical details
 
@@ -55,15 +53,14 @@ All of the microservices have their own Docker images.
 
 ## Running locally
 
-This application uses pnpm and is configured to run with Docker Compose, although you can also run locally without having Docker installed.
+This application uses pnpm and is configured to run with Docker Compose, although you can also run it locally without having Docker installed.
 
 ```bash
 $ git clone https://github.com/albertobas/bank-microservices.git
 $ cd bank-microservices
 $ git submodule update --init --recursive
+$ cp .env.example .env # fill in tha values for each variable in .env
 ```
-
-Create an .env file from the .env.example file filling tha values for each variable.
 
 ### Running w/ Docker
 
@@ -82,14 +79,12 @@ $ docker compose -f docker-compose.yaml up
 
 ### Running w/o Docker
 
+Replace _host.docker.internal_ for _127.0.0.1_ for all the corresponding npm scripts in `services/loans/package.json` and `services/customers/package.json`.
+
 ```bash
 $ cd services/loans-model
 $ poetry install --no-root
-```
-
-Replace 'host.docker.internal' for 127.0.0.1 for all the corresponding npm scripts in `services/loans/package.json` and `services/customers/package.json`. Then:
-
-```bash
+$ cd ../..
 $ pnpm install
 $ pnpm run start:chain
 ```
