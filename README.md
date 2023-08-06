@@ -53,18 +53,13 @@ All of the microservices have their own Docker images.
 
 ## Running locally
 
-This application uses pnpm and is configured to run with Docker Compose, although you can also run it locally without having Docker installed.
+This application uses pnpm and is configured to run with Docker Compose.
 
 ```bash
 $ git clone https://github.com/albertobas/bank-microservices.git
 $ cd bank-microservices
 $ git submodule update --init --recursive
 $ cp .env.example .env # fill in tha values for each variable in .env
-```
-
-### Running w/ Docker
-
-```bash
 $ pnpm install
 $ pnpm start:chain --filter=customers # only run one node, for instance executing the hardhat node in the customers workspace
 ```
@@ -75,27 +70,6 @@ Open another tab in terminal and:
 $ pnpm deploy:contracts && pnpm populate & pnpm share
 $ COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker compose -f docker-compose.yaml build
 $ docker compose -f docker-compose.yaml up
-```
-
-### Running w/o Docker
-
-Replace _host.docker.internal_ for _127.0.0.1_ for all the corresponding npm scripts in `services/loans/package.json` and `services/customers/package.json`.
-
-```bash
-$ cd services/loans-model
-$ poetry install --no-root
-$ cd ../..
-$ pnpm install
-$ pnpm run start:chain
-```
-
-Open another tab in terminal and:
-
-```bash
-$ pnpm compile && pnpm deploy:contracts
-$ pnpm populate & pnpm share
-$ pnpm build
-$ pnpm start
 ```
 
 ## Testing the contracts
