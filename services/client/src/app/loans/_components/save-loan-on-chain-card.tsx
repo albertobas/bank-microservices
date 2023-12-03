@@ -1,11 +1,10 @@
 'use client';
 
-import { useNetwork } from 'wagmi';
+import { useNetwork, useContractWrite, type Address } from 'wagmi';
 import { useIsMounted } from 'src/app/_hooks';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getLoanByIdentifierWithDep } from 'src/features/loans/core/interactors';
-import { type Address, useContractWrite } from 'wagmi';
 import loansContractsJson from 'src/generated/loans/contracts.json';
 import { stringToBytes32 } from 'src/shared/utils/helpers';
 import { Card } from 'src/app/_components';
