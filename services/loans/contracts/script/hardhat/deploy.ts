@@ -8,9 +8,7 @@ async function main(): Promise<void> {
       'The contract has been deployed to the Hardhat Network, so it got automatically created ' +
         "and destroyed. Use the Hardhat option '--network localhost'"
     );
-  }
-
-  if (network.name !== 'hardhat') {
+  } else {
     const networkFolderPath = join(__dirname, '../../deployments', network.name);
     const contractName = 'LoanManager';
     const [deployer] = await ethers.getSigners();
