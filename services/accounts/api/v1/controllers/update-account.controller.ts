@@ -8,7 +8,6 @@ export const updateAccountController = async ({ body }: Request, response: Respo
 
   // If account is not valid
   if (!isInstanceOfAccount(account)) {
-    // response.status(StatusCodes.BAD_REQUEST).json({ success: false, error: accountBadRequestMessage });
     response
       .status(StatusCodes.BAD_REQUEST)
       .json({ success: false, error: true, message: accountBadRequestMessage, data: null });
