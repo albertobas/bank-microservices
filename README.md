@@ -14,7 +14,7 @@ The back-end code is written in Typescript using Express.js and Python using Fla
 
 The front-end code is mostly written in TypeScript using Next.js, a React.js framework.
 
-Both, back end (all the APIs but that of the Flask web service) and front end, are implemented based on an hexagonal architecture .
+Both, back end (all the APIs but that of the Flask web service) and front end, are implemented based on a hexagonal architecture .
 
 Also, a scikit-learn pipeline has been developed that includes a Skorch neural net binary classifier that wraps a Pytorch neural net.
 
