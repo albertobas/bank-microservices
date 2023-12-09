@@ -4,7 +4,7 @@
 
 ## About
 
-Bank Microservices is my own approach to a bank application with a microservices-based architecture which can handle creating, updating, and deleting accounts, customers and loans, store data on-chain and make predictions about potential loan defaults.
+Bank Microservices is my own approach to a bank application, with a microservices-based architecture and using the [MERN stack](https://www.mongodb.com/mern-stack 'What Is The MERN Stack? Introduction & Examples | MongoDB'), which can handle creating, updating, and deleting accounts, customers and loans, store data on-chain and make predictions about potential loan defaults.
 
 ## Technical details
 
@@ -24,14 +24,14 @@ Finally, data can be queried from a local TheGraph node using GraphQL. The subgr
 
 All of the microservices have their own Docker images.
 
-- **Contracts frameworks**: [Hardhat](https://hardhat.org/) and [Foundry](https://getfoundry.sh/)
-- **Front-end framework**: [Next.js](https://nextjs.org/)
-- **Back-end framework**: [Express.js](https://expressjs.com/) and [Flask](https://flask.palletsprojects.com/)
-- **Query language**: [GraphQL](https://graphql.org/)
-- **Data resource**: [TheGraph](https://thegraph.com/)
+- **Contracts frameworks**: [Hardhat](https://hardhat.org) and [Foundry](https://getfoundry.sh)
+- **Front-end framework**: [Next.js](https://nextjs.org)
+- **Back-end frameworks**: [Express.js](https://expressjs.com) and [Flask](https://flask.palletsprojects.com)
+- **Query language**: [GraphQL](https://graphql.org)
+- **Data resources**: [MongoDB](https://www.mongodb.com) and [TheGraph](https://thegraph.com)
 - **Styling**: [PostCSS](https://postcss.org)
-- **Python dependency manager**: [Poetry](https://python-poetry.org/)
-- **Machine learning framework**: [Pytorch](https://pytorch.org/)
+- **Python dependency manager**: [Poetry](https://python-poetry.org)
+- **Machine learning framework**: [Pytorch](https://pytorch.org)
 
 ## Overview
 
