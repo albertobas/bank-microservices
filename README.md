@@ -27,6 +27,8 @@ All of the microservices have their own Docker images.
 - **Contracts frameworks**: [Hardhat](https://hardhat.org) and [Foundry](https://getfoundry.sh)
 - **Front-end framework**: [Next.js](https://nextjs.org)
 - **Back-end frameworks**: [Express.js](https://expressjs.com) and [Flask](https://flask.palletsprojects.com)
+- **Front-end language**: [Typescript](https://www.typescriptlang.org)
+- **Back-end language**: [Typescript](https://www.typescriptlang.org) and [Python](https://www.python.org)
 - **Query language**: [GraphQL](https://graphql.org)
 - **Data resources**: [MongoDB](https://www.mongodb.com) and [TheGraph](https://thegraph.com)
 - **Styling**: [PostCSS](https://postcss.org)
@@ -77,3 +79,9 @@ $ docker compose -f docker-compose.yaml up
 ```bash
 $ pnpm test
 ```
+
+## Related posts
+
+I have written the following post to explain in detail this project:
+
+- [Approach to a microservices-based architecture bank application](https://www.albertobas.com/blog/bank-microservices 'Approach to a microservices-based architecture bank application | Alberto Bas')
