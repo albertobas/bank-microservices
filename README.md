@@ -8,17 +8,11 @@ Bank Microservices is my own approach to a bank application, with a microservice
 
 ## Technical details
 
-The contracts are written in Solidity using Hardhat, and tested using Foundry.
-
-The back-end code is written in Typescript using Express.js and Python using Flask.
-
-The front-end code is mostly written in TypeScript using Next.js, a React.js framework.
+The bulk of this application is made up of (i) smart contracts, which are written in Solidity using Hardhat, and tested using Foundry, (ii) back-end code, written in Typescript using Express.js and Python using Flask, and (iii) front-end code which is mostly written in TypeScript using Next.js, a React.js framework.
 
 Both, back end (all the APIs but that of the Flask web service) and front end, are implemented based on a hexagonal architecture .
 
-Also, a scikit-learn pipeline has been developed that includes a Skorch neural net binary classifier that wraps a Pytorch neural net.
-
-A hyperparameter optimization of both, model and training, evaluated by cross-validation is performed in a Jupyter notebook.
+Also, a scikit-learn pipeline has been developed that includes a Skorch neural net binary classifier that wraps a Pytorch neural net. A hyperparameter optimization of both, model and training, evaluated by cross-validation is performed in a Jupyter notebook.
 
 Finally, data can be queried from a local TheGraph node using GraphQL. The subgraph that is used is set to support multiple networks, relevant deployment data will be shared accordingly.
 
