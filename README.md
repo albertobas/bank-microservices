@@ -8,7 +8,7 @@ Bank Microservices is my own approach to a bank application, with a microservice
 
 ## Technical details
 
-The bulk of this application is made up of (i) smart contracts, which are written in Solidity using Hardhat, and tested using Foundry, (ii) back-end code, written in Typescript using Express.js and Python using Flask, and (iii) front-end code which is mostly written in TypeScript using Next.js, a React.js framework.
+The bulk of this application is made up of (i) smart contracts, which are written in Solidity using Hardhat, and tested using Foundry, (ii) back-end code, written in TypeScript using Express.js and Python using Flask, and (iii) front-end code which is mostly written in TypeScript using Next.js, a React.js framework.
 
 Both, back end (all the APIs but that of the Flask web service) and front end, are implemented based on a hexagonal architecture .
 
@@ -21,8 +21,8 @@ All of the microservices have their own Docker images.
 - **Contracts frameworks**: [Hardhat](https://hardhat.org) and [Foundry](https://getfoundry.sh)
 - **Front-end framework**: [Next.js](https://nextjs.org)
 - **Back-end frameworks**: [Express.js](https://expressjs.com) and [Flask](https://flask.palletsprojects.com)
-- **Front-end language**: [Typescript](https://www.typescriptlang.org)
-- **Back-end language**: [Typescript](https://www.typescriptlang.org) and [Python](https://www.python.org)
+- **Front-end language**: [TypeScript](https://www.typescriptlang.org)
+- **Back-end language**: [TypeScript](https://www.typescriptlang.org) and [Python](https://www.python.org)
 - **Query language**: [GraphQL](https://graphql.org)
 - **Data resources**: [MongoDB](https://www.mongodb.com) and [TheGraph](https://thegraph.com)
 - **Styling**: [PostCSS](https://postcss.org)
